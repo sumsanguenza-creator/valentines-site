@@ -1,1 +1,265 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Valentine Letter</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Poppins',sans-serif;
+  overflow-x:hidden;
+  background:radial-gradient(circle at center,#2b0a12,#140308 70%);
+  color:white;
+  scroll-behavior:smooth;
+}
+
+/* Intro Heart Section */
+.intro{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at center,#3b0d16,#140308 80%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+  transition:opacity 1.5s ease;
+}
+.real-heart{
+  width:180px;
+  filter:drop-shadow(0 0 25px rgba(255,0,60,0.8));
+  animation:heartbeat 1.2s infinite ease-in-out;
+}
+@keyframes heartbeat{
+  0%{transform:scale(1)}
+  15%{transform:scale(1.15)}
+  30%{transform:scale(1)}
+  45%{transform:scale(1.2)}
+  60%{transform:scale(1)}
+  100%{transform:scale(1)}
+}
+.question{
+  margin-top:40px;
+  font-size:1.4rem;
+  color:#ff9aa2;
+}
+.buttons{margin-top:25px}
+button{
+  padding:10px 25px;
+  margin:10px;
+  border:none;
+  border-radius:30px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s;
+}
+.yes{background:#ff4d6d;color:white; font-size:1.5rem;}
+.no{background:white;color:#ff4d6d}
+button:hover{transform:scale(1.1)}
+.hidden{opacity:0;pointer-events:none}
+
+/* Name Section */
+.name-section{
+  text-align:center;
+  padding:60px 20px 40px 20px;
+}
+.name-section h1{ font-size:3rem; margin-bottom:10px; }
+.name-section h2{ font-size:3rem; color:#ff9aa2; font-weight:700; margin-bottom:10px; }
+.name-section p{ font-size:1.5rem; color:#ffb0b0; }
+
+/* Letter Section */
+.letter-section{
+  min-height:100vh;       /* At least one screen height */
+  padding:80px 20px;      /* Top padding so it doesn't touch name */
+  display:flex;
+  justify-content:center;
+  flex-direction:column;
+  align-items:center;
+}
+.letter-box{
+  max-width:700px;
+  background:rgba(255,255,255,0.95);
+  color:#590d22;
+  padding:30px 40px;
+  border-radius:20px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+  font-size:1.3rem;
+  line-height:1.8;
+  opacity:0;
+  transform:translateY(50px);
+  transition:all 1.2s ease;
+}
+.letter-box.show{opacity:1;transform:translateY(0)}
+.letter-box p:first-child { font-size:1.6rem; font-weight:600; }
+
+/* Photos & Videos Section */
+.photos{
+  position:relative;
+  padding:60px 20px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:25px;
+}
+.photos img,
+.photos video{
+  width:200px;
+  height:200px;
+  object-fit:cover;
+  border-radius:20px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.4);
+  transition:transform 0.3s ease;
+  cursor:pointer;
+}
+.photos img:hover,
+.photos video:hover{ transform:scale(1.1); }
+
+/* Floating Hearts */
+.floating-heart{
+  position:fixed;
+  bottom:-10px;
+  font-size:20px;   
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp{to{transform:translateY(-110vh);opacity:0}}
+
+/* Final Section */
+.final{ text-align:center; padding:80px 20px; }
+.final h3{ font-size:3rem; color:#ff9aa2; }
+
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+<source src="images_and_videos/Silent Sanctuary - 14.mp3" type="audio/mpeg">
+</audio>
+<audio id="heartbeatSound" loop>
+<source src="heartbeat.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Intro Heart -->
+<div class="intro" id="intro">
+<svg class="real-heart" viewBox="0 0 512 512">
+<defs>
+<radialGradient id="heartGradient" cx="50%" cy="40%" r="60%">
+<stop offset="0%" stop-color="#ff6b81"/>
+<stop offset="40%" stop-color="#c9184a"/>
+<stop offset="100%" stop-color="#590d22"/>
+</radialGradient>
+</defs>
+<path fill="url(#heartGradient)" d="M471.7 73.3c-54.5-46.4-136-38.3-186.4 13.7L256 117.6l-29.3-30.6C176.3 35 94.8 26.9 40.3 73.3c-62.8 53.5-66.1 149.8-9.9 207.6l193.5 199.8c6.6 6.8 15.4 10.3 24.1 10.3s17.5-3.4 24.1-10.3l193.5-199.8c56.2-57.8 52.9-154.1-9.9-207.6z"/>
+</svg>
+<div class="question">Would you like to open it? 💌</div>
+<div class="buttons">
+<button class="yes" onclick="openLetter()">Yes ❤️</button>
+<button class="no" onmouseover="moveNo(this)">No 😢</button>
+</div>
+</div>
+
+<!-- Name Section -->
+<section class="name-section">
+<h1>For My Love</h1>
+<h2>Rheanne Flobelle Marallag</h2>
+<p>Scroll Down Love ❤️</p>
+</section>
+
+<!-- Letter Section -->
+<section class="letter-section">
+<div class="letter-box" id="letter">
+<p>My Love,</p>
+<p>Hi baby, haappyy vaalentinesss, i know wala kang alam sa kung ano man 'yong nangyayari saakin these past few days but i want you to know that i'm busy to make this for you and the gift i will give for you, nababaliw na ako nung gabing 'yon kasi sabi nung seller mali daw 'yong pag bilang nila sa pag check out so na out of stock and biglang ni refund nila and then sumunod na araw is hindi ko na alam gagawin ko kaya naging gano'n 'yong mga actions ko sa'yo, but may nahanap ako kagabi na shop na nag customize so chinat ko kaagad sila and i'm so glad kasi nag reply kaagad sila and nakiusap ako na paabutin nila ng 14 'yong pag deliver so masasaktuhan ko 'yong pag bigay sa'yo BWHAHAHAHAHAHAHAHA and buti pumayag si luis na siya ang mag bibigay sa'yo, the best talaga na bayaw e BWAHAHAHAHAHAHAHAH, again baby thank you so so very much kasi you'll always be there for me, and you will change yourself to be better for our relationship and for yourself. This time baby i want you to know that i'm so inlove with you, handa akong gawin lahat katulad mo para ma feel mo na you're special everyday.</p> <p>I promise that i will love you more than myself, buying gifts for you, protect you, i wanna spoil you everything baby. Happy valentiness daayy againn wifeeyy koo.</p> <p>Sincerely yours ❤️</p> </div>
+</section>
+
+<!-- Photos & Videos Section -->
+<section class="photos">
+<img src="images_and_videos/wifey3.jpg">
+<img src="images_and_videos/wifey2.jpg">
+<img src="images_and_videos/wifey.jpg">
+<img src="images_and_videos/heart.jpg">
+<img src="images_and_videos/cute.jpg">
+<video src="images_and_videos/bebi.mp4" muted loop></video>
+<video src="images_and_videos/baby.mp4" muted loop></video>
+</section>
+
+<!-- Final Section -->
+<section class="final">
+<h3>Forever Yours, Rheanne Flobelle Marallag ❤️</h3>
+</section>
+
+<!-- Media Modal -->
+<div id="mediaModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);justify-content:center;align-items:center;z-index:2000;">
+  <span onclick="closeModal()" style="position:absolute;top:30px;right:40px;font-size:40px;color:white;cursor:pointer;">&times;</span>
+  <img id="modalImg" style="max-width:90%; max-height:90%; display:none;">
+  <video id="modalVideo" controls style="max-width:90%; max-height:90%; display:none;"></video>
+</div>
+
+<script>
+const intro=document.getElementById('intro');
+const heartbeat=document.getElementById('heartbeatSound');
+heartbeat.volume=0.6;
+heartbeat.play();
+
+function openLetter(){
+  intro.classList.add('hidden');
+  heartbeat.pause();
+  document.getElementById('bgMusic').play();
+}
+function moveNo(btn){
+  btn.style.position='absolute';
+  btn.style.left=Math.random()*80+'%';
+  btn.style.top=Math.random()*80+'%';
+}
+
+window.addEventListener('scroll',()=>{
+  const letter=document.getElementById('letter');
+  const position=letter.getBoundingClientRect().top;
+  if(position<window.innerHeight/1.3){
+    letter.classList.add('show');
+  }
+});
+
+function createHeart(){
+  const heart=document.createElement('div');
+  heart.classList.add('floating-heart');
+  heart.innerHTML='❤️';
+  heart.style.left=Math.random()*100+'vw';
+  heart.style.animationDuration=(Math.random()*3+3)+'s';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,500);
+
+// Clickable Photos & Videos
+document.querySelectorAll('.photos img').forEach(img => {
+  img.addEventListener('click', () => {
+    const modal = document.getElementById('mediaModal');
+    modal.style.display='flex';
+    document.getElementById('modalImg').style.display='block';
+    document.getElementById('modalVideo').style.display='none';
+    document.getElementById('modalImg').src=img.src;
+  });
+});
+document.querySelectorAll('.photos video').forEach(video => {
+  video.addEventListener('click', () => {
+    const modal = document.getElementById('mediaModal');
+    modal.style.display='flex';
+    document.getElementById('modalImg').style.display='none';
+    const modalVideo = document.getElementById('modalVideo');
+    modalVideo.style.display='block';
+    modalVideo.src = video.src;
+    modalVideo.play();
+  });
+});
+function closeModal(){
+  const modal = document.getElementById('mediaModal');
+  modal.style.display='none';
+  document.getElementById('modalVideo').pause();
+}
+</script>
+
+</body>
+</html>
